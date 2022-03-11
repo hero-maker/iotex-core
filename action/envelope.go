@@ -84,6 +84,7 @@ func (elp *envelope) Proto() *iotextypes.ActionCore {
 		Version:  elp.version,
 		Nonce:    elp.nonce,
 		GasLimit: elp.gasLimit,
+		ChainID:  elp.chainID,
 	}
 	if elp.gasPrice != nil {
 		actCore.GasPrice = elp.gasPrice.String()

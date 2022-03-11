@@ -1327,7 +1327,9 @@ func TestGrpcServer_SendAction(t *testing.T) {
 	chain.EXPECT().Genesis().Return(ge).Times(2)
 	svr := NewGRPCServer(core, 141014)
 	chain.EXPECT().ChainID().Return(uint32(1)).Times(2)
-	chain.EXPECT().TipHeight().Return(uint64(4)).Times(2)
+	chain.EXPECT().TipHeight().Return(uint64(4)).Times(4)
+	chain.EXPECT().Context(gomock.Any()).Return(
+		genesis.WithGenesisContext(context.Background(), ge), nil).Times(2)
 	ap.EXPECT().Add(gomock.Any(), gomock.Any()).Return(nil).Times(2)
 	for i, test := range sendActionTests {
 		request := &iotexapi.SendActionRequest{Action: test.actionPb}
